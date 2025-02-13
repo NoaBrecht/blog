@@ -58,7 +58,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
         } else {
           res.status(500).json({ message: "Failed to create post" });
         }
-      } catch (e) {
+      } catch (e: any) {
         console.error(e);
         res
           .status(500)
