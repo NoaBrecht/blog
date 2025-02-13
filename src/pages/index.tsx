@@ -6,9 +6,13 @@ interface PostsProps {
   error?: string;
 }
 
-export const getServerSideProps: GetServerSideProps<PostsProps> = async () => {
+export const getServerSideProps: GetServerSideProps<PostsProps> = async (
+  context
+) => {
   try {
-    const res = await fetch("http://localhost:3000/api/posts");
+    const host = context.req.headers.host || "localhost:3000";
+    const protocol = context.req.headers["x-forwarded-proto"] || "http";
+    const res = await fetch(`${protocol}://${host}/api/posts`);
     if (!res.ok) {
       throw new global.Error(`HTTP error! status: ${res.status}`);
     }
