@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Post } from "@/types/types";
 import CodeBlock from "@/components/codeblock";
+import Link from "next/link";
 
 interface PostsProps {
   posts?: Post[];
@@ -146,25 +147,25 @@ const Posts = ({ posts, error }: PostsProps) => {
                     ))}
                   </div>
                 )}
-                {post.code && <CodeBlock code={post.code} />}
-
                 <div className="flex justify-end">
-                  <button className="px-6 py-2 bg-[#00A94E] text-white rounded-full text-sm font-semibold hover:bg-[#008a3f] transition-colors duration-300 shadow-sm hover:shadow-md flex items-center gap-2">
-                    Read More
-                    <svg
-                      className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+                  <Link href={`/post/${post._id}`}>
+                    <button className="px-6 py-2 bg-[#00A94E] text-white rounded-full text-sm font-semibold hover:bg-[#008a3f] transition-colors duration-300 shadow-sm hover:shadow-md flex items-center gap-2">
+                      Read More
+                      <svg
+                        className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             </motion.article>
