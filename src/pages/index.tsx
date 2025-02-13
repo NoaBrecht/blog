@@ -4,7 +4,6 @@ import { GetServerSideProps } from "next";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Post } from "@/types/types";
-import CodeBlock from "@/components/codeblock";
 import Link from "next/link";
 
 interface PostsProps {
