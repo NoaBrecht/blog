@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import dotenv from "dotenv";
 import { MongoClient } from "mongodb";
 import { Post } from "@/types/types";
+import auth from "@/middleware/auth";
 dotenv.config();
 
 type ResponseData = {
@@ -74,4 +75,4 @@ const handler = (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
   }
 };
 
-export default handler;
+export default auth(handler);
