@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Post } from "@/types/types";
+import CodeBlock from "@/components/codeblock";
 
 interface PostsProps {
   posts?: Post[];
@@ -75,64 +76,72 @@ const Posts = ({ posts, error }: PostsProps) => {
       animate={{ opacity: 1 }}
       className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100"
     >
-      <div className="max-w-6xl mx-auto px-4 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-16">
         <motion.h1
           initial={{ y: -20 }}
           animate={{ y: 0 }}
-          className="text-7xl font-black text-[#00A94E] mb-20 text-center tracking-tight leading-tight"
+          className="text-6xl font-black text-[#00A94E] mb-16 text-center tracking-tight leading-tight"
         >
           Latest <span className="text-gray-900">Posts</span>
         </motion.h1>
-        <div className="grid gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {posts.map((post, index) => (
             <motion.article
               key={post._id}
               initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-3xl shadow-lg p-12 hover:shadow-2xl transition-all duration-500 border border-gray-100 group"
+              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 border border-gray-100 group overflow-hidden"
             >
               {post.imageUrl && (
-                <div className="mb-8 overflow-hidden rounded-2xl">
+                <div className="relative h-[250px] overflow-hidden">
                   <Image
                     src={post.imageUrl}
                     alt={post.title}
-                    width={1200}
-                    height={630}
-                    className="w-full h-[400px] object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    className="object-cover transform group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
               )}
-              <h2 className="text-4xl font-bold text-gray-900 mb-6 leading-tight group-hover:text-[#00A94E] transition-colors duration-300">
-                {post.title}
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-8 text-xl font-light">
-                {post.content}
-              </p>
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-3 mb-8">
-                  {post.tags.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="px-6 py-2 bg-[#00A94E]/10 text-[#00A94E] rounded-full text-sm font-semibold hover:bg-[#00A94E] hover:text-white transition-all duration-300 cursor-pointer"
+              <div className="p-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-tight group-hover:text-[#00A94E] transition-colors duration-300 line-clamp-2">
+                  {post.title}
+                </h2>
+                <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-3">
+                  {post.content}
+                </p>
+                {post.tags && post.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {post.tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="px-4 py-1 bg-[#00A94E]/10 text-[#00A94E] rounded-full text-xs font-semibold hover:bg-[#00A94E] hover:text-white transition-all duration-300 cursor-pointer"
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {post.code && <CodeBlock code={post.code} />}
+
+                <div className="flex justify-end">
+                  <button className="px-6 py-2 bg-[#00A94E] text-white rounded-full text-sm font-semibold hover:bg-[#008a3f] transition-colors duration-300 shadow-sm hover:shadow-md flex items-center gap-2">
+                    Read More
+                    <svg
+                      className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      #{tag}
-                    </span>
-                  ))}
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
                 </div>
-              )}
-              {post.code && (
-                <motion.pre
-                  whileHover={{ scale: 1.01 }}
-                  className="bg-gray-900 text-gray-100 p-8 rounded-xl overflow-x-auto shadow-inner"
-                >
-                  <code className="font-mono text-sm">{post.code}</code>
-                </motion.pre>
-              )}
-              <div className="mt-8 flex justify-end">
-                <button className="px-8 py-3 bg-[#00A94E] text-white rounded-full font-semibold hover:bg-[#008a3f] transition-colors duration-300 shadow-md hover:shadow-lg">
-                  Read More
-                </button>
               </div>
             </motion.article>
           ))}
