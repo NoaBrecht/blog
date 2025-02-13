@@ -41,7 +41,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
           .json({ message: error.message || "An unexpected error occurred" })
       );
   } else if (req.method === "POST") {
-    const { title, content } = req.body;
+    const { title, content, tags } = req.body;
     if (!title || !content) {
       res.status(400).json({ message: "Title and content are required" });
       return;
