@@ -120,7 +120,7 @@ const PostPage = ({ post, error }: PostProps) => {
             )}
 
             <div className="prose prose-lg max-w-none text-gray-600 leading-relaxed mb-8">
-              <p>{post.content}</p>
+              <pre>{post.content}</pre>
             </div>
 
             {post.code && (

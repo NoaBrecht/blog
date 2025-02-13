@@ -132,7 +132,8 @@ const Posts = ({ posts, error }: PostsProps) => {
                   {post.title}
                 </h2>
                 <p className="text-gray-600 leading-relaxed mb-6 text-base line-clamp-3">
-                  {post.content}
+                  {post.content?.slice(0, 200)}
+                  {post.content && post.content.length > 200 ? "..." : ""}
                 </p>
                 {post.tags && post.tags.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-6">
@@ -140,7 +141,7 @@ const Posts = ({ posts, error }: PostsProps) => {
                       <span
                         key={index}
                         className="px-4 py-1 bg-[#00A94E]/10 text-[#00A94E] rounded-full text-xs font-semibold hover:bg-[#00A94E] hover:text-white transition-all duration-300 cursor-pointer"
-                        onClick={() => setSelectedTag(tag)} // Add this line
+                        onClick={() => setSelectedTag(tag)}
                       >
                         #{tag}
                       </span>
