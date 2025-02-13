@@ -1,3 +1,5 @@
+import { useState, useMemo } from "react";
+import TagFilter from "@/components/TagFilter";
 import { GetServerSideProps } from "next";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -38,6 +40,20 @@ export const getServerSideProps: GetServerSideProps<PostsProps> = async (
 };
 
 const Posts = ({ posts, error }: PostsProps) => {
+  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+  const allTags = useMemo(() => {
+    if (!posts) return [];
+    const tags = posts.flatMap((post) => post.tags || []);
+    return Array.from(new Set(tags));
+  }, [posts]);
+
+  const filteredPosts = useMemo(() => {
+    if (!posts) return [];
+    if (!selectedTag) return posts;
+    return posts.filter((post) => post.tags?.includes(selectedTag));
+  }, [posts, selectedTag]);
+
   if (error) {
     return (
       <motion.div
@@ -53,7 +69,7 @@ const Posts = ({ posts, error }: PostsProps) => {
     );
   }
 
-  if (!posts || posts.length === 0) {
+  if (!filteredPosts || filteredPosts.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -84,8 +100,15 @@ const Posts = ({ posts, error }: PostsProps) => {
         >
           Latest <span className="text-gray-900">Posts</span>
         </motion.h1>
+
+        <TagFilter
+          tags={allTags}
+          selectedTag={selectedTag}
+          onTagSelect={setSelectedTag}
+        />
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {posts.map((post, index) => (
+          {filteredPosts.map((post, index) => (
             <motion.article
               key={post._id}
               initial={{ y: 50, opacity: 0 }}
