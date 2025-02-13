@@ -5,4 +5,5 @@ export type Post = {
   createdAt: Date;
   code?: string;
   tags: string[];
+  imageUrl?: string;
 };
