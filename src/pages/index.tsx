@@ -98,7 +98,7 @@ const Posts = ({ posts, error }: PostsProps) => {
           animate={{ y: 0 }}
           className="text-6xl font-black text-[#00A94E] mb-16 text-center tracking-tight leading-tight"
         >
-          Latest <span className="text-gray-900">Posts</span>
+          <span className="text-gray-900">Mijn ervaringen bij </span>DEME
         </motion.h1>
 
         <TagFilter
