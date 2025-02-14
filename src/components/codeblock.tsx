@@ -71,25 +71,41 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
         </motion.button>
       </div>
       <pre className="p-4 overflow-x-auto">
-        {code.length > 300 ? (
-          <>
-            <motion.code
-              layout
-              className="font-mono text-sm text-gray-100 block"
-            >
-              {isClamped ? `${code.slice(0, 300)}...` : code}
-            </motion.code>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              onClick={() => setIsClamped(!isClamped)}
-              className="block w-full text-center text-sm text-gray-400 hover:text-white mt-2"
-            >
-              {isClamped ? "Show more" : "Show less"}
-            </motion.button>
-          </>
-        ) : (
-          <code className="font-mono text-sm text-gray-100">{code}</code>
-        )}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={isClamped ? "clamped" : "expanded"}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{
+              height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
+              opacity: { duration: 0.2 },
+            }}
+          >
+            {code.length > 300 ? (
+              <>
+                <motion.code
+                  className="font-mono text-sm text-gray-100 block"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
+                >
+                  {isClamped ? `${code.slice(0, 300)}...` : code}
+                </motion.code>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  onClick={() => setIsClamped(!isClamped)}
+                  className="block w-full text-center text-sm text-gray-400 hover:text-white mt-2"
+                  transition={{ duration: 0.2 }}
+                >
+                  {isClamped ? "Show more" : "Show less"}
+                </motion.button>
+              </>
+            ) : (
+              <code className="font-mono text-sm text-gray-100">{code}</code>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </pre>
     </motion.div>
   );
