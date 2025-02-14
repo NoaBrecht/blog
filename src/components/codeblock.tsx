@@ -16,11 +16,7 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
   };
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.01 }}
-      transition={{ duration: 0.2, ease: "easeInOut" }}
-      className="relative bg-gray-900 rounded-lg overflow-hidden mb-6"
-    >
+    <motion.div className="relative bg-gray-900 rounded-lg overflow-hidden mb-6">
       <div className="flex justify-between items-center px-4 py-2 bg-gray-800">
         <span className="text-gray-400 text-xs">Code</span>
         <motion.button
