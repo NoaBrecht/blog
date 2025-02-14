@@ -75,43 +75,42 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
           <motion.div className="font-mono text-sm text-gray-100">
             <div>
               {code.slice(0, 300)}
-              {isClamped && (
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  ...
-                </motion.span>
-              )}
+              <AnimatePresence mode="wait" initial={false}>
+                {isClamped ? (
+                  <motion.span
+                    key="dots"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    ...
+                  </motion.span>
+                ) : (
+                  <motion.div
+                    key="content"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{
+                      height: "auto",
+                      opacity: 1,
+                    }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                    }}
+                    transition={{
+                      height: {
+                        duration: 0.4,
+                        ease: [0.04, 0.62, 0.23, 0.98],
+                      },
+                      opacity: { duration: 0.3 },
+                    }}
+                  >
+                    {code.slice(300)}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <AnimatePresence mode="wait" initial={false}>
-              {!isClamped && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                  }}
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                  }}
-                  transition={{
-                    height: {
-                      duration: 0.4,
-                      ease: [0.04, 0.62, 0.23, 0.98],
-                    },
-                    opacity: {
-                      duration: 0.3,
-                    },
-                  }}
-                >
-                  {code.slice(300)}
-                </motion.div>
-              )}
-            </AnimatePresence>
           </motion.div>
           {code.length > 300 && (
             <motion.button
