@@ -71,8 +71,8 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
         </motion.button>
       </div>
       <pre className="p-4 overflow-x-auto">
-        <div>
-          <motion.div className="font-mono text-sm text-gray-100">
+        <div className="flex flex-col items-center">
+          <motion.div className="font-mono text-sm text-gray-100 w-full">
             <div className="inline">
               {code.slice(0, 300)}
               <AnimatePresence mode="wait" initial={false}>
