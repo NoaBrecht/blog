@@ -96,6 +96,7 @@ const PostPage = ({ post, error }: PostProps) => {
                 src={post.imageUrl}
                 alt={post.title}
                 fill
+                priority
                 className="object-cover"
               />
             </div>
