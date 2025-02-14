@@ -4,7 +4,11 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   images: {
-    domains: ["media.discordapp.net"],
+    remotePatterns: [
+      {
+        hostname: "media.discordapp.net",
+      },
+    ],
   },
 };
 
