@@ -73,12 +73,13 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
       <pre className="p-4 overflow-x-auto">
         <div>
           <motion.div className="font-mono text-sm text-gray-100">
-            <div>
+            <div className="inline">
               {code.slice(0, 300)}
               <AnimatePresence mode="wait" initial={false}>
                 {isClamped ? (
                   <motion.span
                     key="dots"
+                    className="inline"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -87,39 +88,62 @@ const CodeBlock = ({ code }: CodeBlockProps) => {
                     ...
                   </motion.span>
                 ) : (
-                  <motion.div
+                  <motion.span
                     key="content"
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{
-                      height: "auto",
-                      opacity: 1,
-                    }}
-                    exit={{
-                      height: 0,
-                      opacity: 0,
-                    }}
-                    transition={{
-                      height: {
-                        duration: 0.4,
-                        ease: [0.04, 0.62, 0.23, 0.98],
-                      },
-                      opacity: { duration: 0.3 },
-                    }}
+                    className="inline"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
                   >
                     {code.slice(300)}
-                  </motion.div>
+                  </motion.span>
                 )}
               </AnimatePresence>
             </div>
           </motion.div>
           {code.length > 300 && (
             <motion.button
-              whileHover={{ scale: 1.02 }}
               onClick={() => setIsClamped(!isClamped)}
-              className="block w-full text-center text-sm text-gray-400 hover:text-white mt-2"
-              transition={{ duration: 0.2 }}
+              className="mt-4 text-sm text-gray-400 hover:text-white transition-colors duration-200 flex items-center gap-2"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              {isClamped ? "Show more" : "Show less"}
+              {isClamped ? (
+                <>
+                  Show more
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </>
+              ) : (
+                <>
+                  Show less
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 15l7-7 7 7"
+                    />
+                  </svg>
+                </>
+              )}
             </motion.button>
           )}
         </div>
