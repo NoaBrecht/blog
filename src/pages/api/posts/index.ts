@@ -25,7 +25,7 @@ const handler = (req: NextApiRequest, res: NextApiResponse<ResponseData>) => {
         .db("StageDb")
         .collection("StageDb")
         .find<Post>({});
-      posts = await result.toArray();
+      posts = (await result.toArray()).reverse();
     } catch (e: any) {
       console.error(e);
     } finally {
