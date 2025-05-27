@@ -70,7 +70,7 @@ const Home = ({ posts, error }: HomeProps) => {
 
       {/* Nieuwste Blogpost */}
       {latestPost && (
-        <section className="max-w-2xl mx-auto mb-12 w-full pb-12">
+        <section className="max-w-2xl mx-auto mb-12 w-full ">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
             Nieuwste Blogpost
           </h2>
