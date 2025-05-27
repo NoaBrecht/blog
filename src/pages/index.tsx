@@ -45,7 +45,7 @@ const Home = ({ posts, error }: HomeProps) => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100"
+      className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 pb-20"
     >
       <div className="max-w-3xl mx-auto px-4 py-16 text-center">
         <motion.h1
@@ -70,14 +70,14 @@ const Home = ({ posts, error }: HomeProps) => {
 
       {/* Nieuwste Blogpost */}
       {latestPost && (
-        <section className="max-w-2xl mx-auto mb-12 w-full">
+        <section className="max-w-2xl mx-auto mb-12 w-full pb-12">
           <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
             Nieuwste Blogpost
           </h2>
           <motion.article
             initial={{ y: 50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden"
+            className="bg-[#00A94E]/10 rounded-2xl shadow-md overflow-hidden transition-colors duration-500"
           >
             {latestPost.imageUrl && (
               <div className="relative h-[200px] overflow-hidden">
