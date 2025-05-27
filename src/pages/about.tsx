@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import StageInfo from "@/components/StageInfo";
 
 export default function Over() {
   return (
@@ -76,8 +77,7 @@ export default function Over() {
               toonaangevend bedrijf in de maritieme sector, gespecialiseerd in
               baggerwerken, offshore energie en milieuprojecten.
             </p>
-            {/* //! WRITE A TEXT ABOUT STAGE */}
-            <p className="text-gray-700"></p>
+            <StageInfo />
           </div>
           <div>
             <h2 className="text-xl font-semibold mb-2 text-[#00b455]">
